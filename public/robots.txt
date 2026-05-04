@@ -12,3 +12,5 @@ Allow: /
 
 User-agent: *
 Allow: /
+
+Sitemap: https://rgalhardo07-svg.github.io/pro-fish-expert-main/sitemap.xml
