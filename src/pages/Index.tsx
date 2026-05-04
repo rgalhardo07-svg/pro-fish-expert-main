@@ -8,16 +8,17 @@ import iscasImg from "@/assets/iscas.jpg";
 const WHATSAPP_URL = "https://chat.whatsapp.com/JfPAkYZLdwgKOR4NTVuEMY?mode=gi_t";
 const GROUP_NAME = "Promoções do Pescador";
 
-const CTA = ({ children = "Entrar no Grupo VIP", className = "" }: { children?: React.ReactNode; className?: string }) => (
+const CTA = ({ children = "Entrar no Grupo VIP", className = "", mobile = false }: { children?: React.ReactNode; className?: string; mobile?: boolean }) => (
   <a
     href={WHATSAPP_URL}
     target="_blank"
     rel="noopener noreferrer"
-    className={`group relative inline-flex items-center justify-center gap-3 rounded-full bg-gradient-whatsapp px-8 py-5 text-base sm:text-lg font-bold text-white shadow-whatsapp transition-all duration-500 hover:scale-[1.03] hover:shadow-[0_25px_60px_-10px_hsl(var(--whatsapp)/0.7)] animate-pulse-ring ${className}`}
+    className={`group relative inline-flex items-center justify-center gap-3 rounded-full bg-gradient-whatsapp px-6 py-4 sm:px-8 sm:py-5 text-sm sm:text-base font-bold text-white shadow-whatsapp transition-all duration-500 hover:scale-[1.03] hover:shadow-[0_25px_60px_-10px_hsl(var(--whatsapp)/0.7)] animate-pulse-ring w-full sm:w-auto ${mobile ? 'text-xs py-3' : ''} ${className}`}
   >
-    <MessageCircle className="h-6 w-6" strokeWidth={2.5} />
-    <span>{children}</span>
-    <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
+    <MessageCircle className="h-5 w-5 sm:h-6 sm:w-6" strokeWidth={2.5} />
+    <span className="hidden sm:inline">{children}</span>
+    <span className="sm:hidden">Entrar</span>
+    <ArrowRight className="h-4 w-4 sm:h-5 sm:w-5 transition-transform group-hover:translate-x-1" />
   </a>
 );
 
@@ -79,21 +80,20 @@ const Index = () => {
               +19.000 pescadores ativos · <span className="font-bold text-destructive">{spots} vagas liberadas hoje</span>
             </div>
 
-            <h1 className="font-display text-5xl sm:text-7xl lg:text-[5.5rem] leading-[0.92] tracking-tight">
+            <h1 className="font-display text-4xl sm:text-6xl lg:text-7xl leading-[0.95] tracking-tight">
               PARE DE PAGAR<br />
               CARO PELO SEU<br />
-              <span className="text-gradient-gold">EQUIPAMENTO DE PESCA</span>
+              <span className="text-gradient-gold">EQUIPAMENTO</span>
             </h1>
 
-            <p className="mt-6 max-w-xl text-base sm:text-lg text-muted-foreground leading-relaxed">
-              Entre no grupo <span className="font-bold text-foreground">Promoções do Pescador</span> e receba diariamente
-              ofertas de varas, carretilhas, molinetes e iscas com até{" "}
-              <span className="font-bold text-foreground">70% OFF</span> direto no seu WhatsApp.
-              <span className="block mt-2">Curadoria 100% pesca esportiva. Sem spam. Sem enrolação.</span>
+            <p className="mt-4 text-sm sm:text-base text-muted-foreground leading-relaxed">
+              Entre no grupo <span className="font-bold text-foreground">Promoções do Pescador</span> e receba
+              ofertas com até <span className="font-bold text-foreground">70% OFF</span>.
+              <span className="block mt-1">Varas, carretilhas e iscas.</span>
             </p>
 
             <div className="mt-8 flex flex-col sm:flex-row sm:items-center gap-5">
-              <CTA>Entrar Grátis no Grupo VIP</CTA>
+              <CTA mobile={true}>Entrar Grátis no Grupo VIP</CTA>
               <div className="flex items-center gap-3 text-sm text-muted-foreground">
                 <div className="flex -space-x-2">
                   {[
@@ -114,10 +114,12 @@ const Index = () => {
               </div>
             </div>
 
-            <div className="mt-10 grid grid-cols-3 gap-4 max-w-md">
-              <Stat value="-70%" label="Até de desconto" />
-              <Stat value="19K+" label="Pescadores" />
-              <Stat value="24/7" label="Ofertas ao vivo" />
+            <div className="mt-6 flex flex-col gap-4 sm:hidden">
+              <div className="grid grid-cols-3 gap-2 max-w-xs">
+                <Stat value="-70%" label="Até de desconto" />
+                <Stat value="19K+" label="Pescadores" />
+                <Stat value="24/7" label="Ofertas ao vivo" />
+              </div>
             </div>
           </div>
 
@@ -196,15 +198,15 @@ const Index = () => {
           <p className="mt-4 text-muted-foreground">Ofertas curadas em todas as categorias da pesca esportiva — do iniciante ao tournament angler.</p>
         </div>
 
-        <div className="mt-12 grid gap-6 md:grid-cols-3">
+        <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {[
             { img: varasImg, title: "Varas Premium", desc: "Carbono, ação e potência calibradas para black bass, tucunaré e pesca de praia.", off: "-55%" },
             { img: carretilhaImg, title: "Carretilhas & Molinetes", desc: "Shimano, Daiwa, Marine Sports — top de linha com freios sedosos.", off: "-65%" },
             { img: iscasImg, title: "Iscas Artificiais", desc: "Plugs, jigs, soft baits e shads para todas as condições de água.", off: "-50%" },
           ].map((c, i) => (
-            <article key={i} className="group relative overflow-hidden rounded-3xl border border-border bg-card transition-all duration-500 hover:border-gold/50 hover:-translate-y-2 hover:shadow-gold">
+            <article key={i} className="group relative overflow-hidden rounded-2xl border border-border bg-card transition-all duration-500 hover:border-gold/50 hover:-translate-y-1 hover:shadow-gold">
               <div className="relative aspect-[4/3] overflow-hidden">
-                <img src={c.img} alt={c.title} loading="lazy" width={1024} height={768} className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                <img src={c.img} alt={c.title} loading="lazy" width={1024} height={768} className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
                 <div className="absolute inset-0 bg-gradient-to-t from-card via-card/30 to-transparent" />
                 <div className="absolute top-4 right-4 rounded-full bg-gradient-gold px-3 py-1 text-xs font-black text-deep shadow-gold">
                   {c.off} OFF
@@ -315,7 +317,7 @@ const Index = () => {
             </h2>
           </div>
 
-          <div className="mt-12 grid gap-6 md:grid-cols-3">
+          <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {[
               { name: "Rafael M.", role: "Pesca de black bass · SP", text: "Comprei uma carretilha Shimano por R$ 380 que tava R$ 1.100. Grupo é fora da curva pra quem leva a sério.", stars: 5, gender: "male" },
               { name: "Lucas P.", role: "Tucunaré · AM", text: "Já economizei mais de R$ 2 mil em iscas e linhas. Os caras realmente entendem de pesca esportiva.", stars: 5, gender: "male" },
